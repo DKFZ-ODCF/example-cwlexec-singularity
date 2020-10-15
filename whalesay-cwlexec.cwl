@@ -1,9 +1,9 @@
-#!/usr/bin/env cwlexec -w "$PWD/cwlexec" --exec-config lsf.json cowsay-cwlexec.cwl cowsay.yaml
+#!/usr/bin/env cwlexec -w "$PWD/cwlexec" --exec-config lsf.json whalesay-cwlexec.cwl whalesay.yaml
 
 cwlVersion: v1.0
 
 # CWLexec does not automatically convert a remote Docker image into a Singularity image. Therefore 
-# get the image with `singularity pull /path/to/your/grycap-cowsay.sif docker://grypcap/cowsay`
+# get the image with `singularity pull --name docker_whalesay.sif docker://docker/whalesay`
 
 class: Workflow
 
@@ -12,7 +12,7 @@ requirements:
 
 hints:
   DockerRequirement:
-    dockerPull: /icgc/dkfzlsdf/analysis/W610/kensche/WFMS/cwl/workflows/cowsay/grycap-cowsay.sif
+    dockerPull: /icgc/dkfzlsdf/analysis/W610/kensche/WFMS/cwl/workflows/cowsay/docker_whalesay.sif
 
 inputs:
   message:
@@ -48,10 +48,10 @@ steps:
       #   - "source /etc/profile;"
       #   - "singularity"
       #   - "run"
-      #   - "docker://grypcap/cowsay:latest"
-      #   - "/usr/games/cowsay"
+      #   - "docker://docker/whalesay:latest"
+      #   - "/usr/local/bin/cowsay"
       baseCommand:
-        - "/usr/games/cowsay"
+        - "/usr/local/bin/cowsay"
       outputs:
         words:
           type: stdout

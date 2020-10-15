@@ -12,7 +12,7 @@ requirements:
 
 hints:
   DockerRequirement:
-    dockerPull: /icgc/dkfzlsdf/analysis/W610/kensche/WFMS/cwl/workflows/cowsay/grycap-cowsay.sif
+    dockerPull: grycap/cowsay
 
 inputs:
   message:

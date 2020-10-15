@@ -1,4 +1,10 @@
 {
     "queue": "short",
-    "rerunnable": true
+    "rerunnable": true,
+    "steps": {
+      "say": {
+        "app": "cwlexec2",
+        "res_req": "rusage[mem=50M]"
+      }
+    }
 }
