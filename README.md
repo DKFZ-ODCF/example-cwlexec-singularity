@@ -63,5 +63,5 @@ Now the same for a whale:
 cwlexec -w "$PWD" --exec-config lsf.json whalesay-cwlexec.cwl whalesay.yaml
 ```
 
-Note that both calls use the same `lsf.json`. We let the cow and the whale say different things, so you we use a a `cowsay.yaml` and a `whalesay.yaml`. 
+Note that both calls use the same `lsf.json`. We let the cow and the whale say different things, so you we use a `cowsay.yaml` and a `whalesay.yaml`. 
 
