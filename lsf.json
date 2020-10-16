@@ -3,7 +3,7 @@
     "rerunnable": true,
     "steps": {
       "say": {
-        "app": "cwlexec2",
+        "app": "singularity",
         "res_req": "rusage[mem=50M]"
       }
     }
