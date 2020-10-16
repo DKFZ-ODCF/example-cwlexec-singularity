@@ -14,13 +14,13 @@ This is just to validate, that the "workflow" actually runs. Note that cwltool w
 
 ## Run the container on the cluster with cwlexec
 
-In contrast to cwltool, cwlexec (tested with 0.2.2) does not pull the container by itself. Therefore, you first need to get the it.
+In contrast to cwltool, cwlexec (tested with 0.2.2) does not pull the container by itself. Therefore, you first need to get it.
 
 ### Get the Containers
 
 First start by retrieving two containers. Two containers are needed to demonstrate how CWLexec uses works with different containers using the application profile. CWLexec cannot automatically convert Docker into Singularity images. Therefore the containers are pulled and converted manually. 
 
-So, first pull the cowsay Docker container, convert it to Singularity, and test it to see what you can expect to obtain from the "workflows":
+So, first pull the cowsay Docker container, convert it to Singularity, and test it to see what you can expect to obtain from the "workflows". This can be done with the following two commands:
 
 ```bash
 singularity pull docker://grycap/cowsay
@@ -34,34 +34,31 @@ singularity pull --name docker_whalesay.sif docker://docker/whalesay
 singularity run docker_whalesay.sif /usr/local/bin/cowsay "HULLOH"
 ```
 
-Note that although the whalesay-container has a cowsay-binary, it is located in a different path.
+Note that although the whalesay-container has a cowsay-binary, it is located in a different path. Probably it is a femaly whale (a whale cow), that talks.
 
 ### Now to CWLexec
 
-The preferred tool to run the workflow on the LSF cluster is cwlexec from IBM. In contrast to cwltool or toil, it allows to set per-workflow resource requirements and queues (`lsf.json`). To run Singularity in the LSF cluster, however, it needs a working application profile. Your admins may have already defined a profile for all LSF users. Check with `bapp` on your head-node to get a list of profiles.
+The preferred tool to run the workflow on the LSF cluster is cwlexec from IBM. In contrast to cwltool or toil, it allows to set per-workflow resource requirements and queues (`lsf.json`). To run Singularity in the LSF cluster, however, cwlexec needs a working application profile. Your admins may have already defined a profile for all LSF users. Check with `bapp` on your head-node to get a list of profiles, or ask your admins! The `lsf.json` assumes the profile is called "singularity".
 
-Before you can execute the workflows, you need to configure the paths to the containers in the CWL files (if you find a way to provide these during execution of CWLexec, I'd be interested to learn how!). The path is given in the `hints` block at the top of files in the `dockerPull` line. E.g.
+Before you can execute the workflows, you need to configure the paths to the containers in the CWL files. Without an absolute path cwlexec assumes the container to reside in the jobs-directory. Iif you find a way to provide these during execution of CWLexec, I'd be interested to learn how! The path is given in the `hints` block at the top of files in the `dockerPull` line. E.g.
 
 ```yaml
 hints:
   DockerRequirement:
-    dockerPull: /path/to/your/docker_whalesay.sif
+    dockerPull: /absolute/path/to/your/docker_whalesay.sif
 ```
 
-If you use a relative path, then cwlexec assumes it to below the 
-
+Now you can run the workflow!
 
 ```bash
 cwlexec -w "$PWD" --exec-config lsf.json cowsay-cwlexec.cwl cowsay.yaml
 ```
 
-This will run the workflow using the `cwlexec2` application profile as defined in the `lsf.json`.
-
-Now the same for a whale:
+Now the same for a whale. Don't forget to adapt the path to the Singularity container, before you run this:
 
 ```bash
 cwlexec -w "$PWD" --exec-config lsf.json whalesay-cwlexec.cwl whalesay.yaml
 ```
 
-Note that both calls use the same `lsf.json`. We let the cow and the whale say different things, so you we use a `cowsay.yaml` and a `whalesay.yaml`. 
+We let the cow and the whale say different things, so you we use a `cowsay.yaml` and a `whalesay.yaml`. 
 
