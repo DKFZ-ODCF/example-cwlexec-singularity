@@ -34,7 +34,7 @@ singularity pull --name docker_whalesay.sif docker://docker/whalesay
 singularity run docker_whalesay.sif /usr/local/bin/cowsay "HULLOH"
 ```
 
-Note that although the whalesay-container has a cowsay-binary, it is located in a different path. Probably it is a femaly whale (a whale cow), that talks.
+Note that although the whalesay-container has a cowsay-binary, it is located in a different path.
 
 ### Now to CWLexec
 
