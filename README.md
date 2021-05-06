@@ -38,7 +38,7 @@ Note that although the whalesay-container has a cowsay-binary, it is located in 
 
 ### Now to CWLexec
 
-The preferred tool to run the workflow on the LSF cluster is cwlexec from IBM. In contrast to cwltool or toil, it allows to set per-workflow resource requirements and queues (`lsf.json`). To run Singularity in the LSF cluster, however, cwlexec needs a working "[application profile](https://www.ibm.com/support/knowledgecenter/SSWRJV_10.1.0/lsf_admin/app_profile_add_rm_def.html)" . Your admins may have already defined a profile for all LSF users. Check with `bapp` on your head-node to get a list of profiles, or ask your admins! The `lsf.json` assumes the profile is called "singularity".
+The preferred tool to run the workflow on the LSF cluster is cwlexec from IBM. In contrast to cwltool or toil, it allows to set per-workflow resource requirements and queues (`lsf.json`). To run Singularity in the LSF cluster, however, cwlexec needs a working "[application profile](https://www.ibm.com/support/knowledgecenter/SSWRJV_10.1.0/lsf_admin/app_profile_add_rm_def.html)" . Your admins may have already defined a profile for all LSF users. Check with `bapp` on your head-node to get a list of profiles, or ask your admins! The `lsf.json` assumes the profile is called "singularity-generic".
 
 Before you can execute the workflows, you need to configure the paths to the containers in the CWL files. Without an absolute path cwlexec assumes the container to reside in the jobs-directory. The path is given in the `hints` block at the top of files in the `dockerPull` line. E.g.
 

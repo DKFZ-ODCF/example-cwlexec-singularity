@@ -12,7 +12,7 @@ requirements:
 
 hints:
   DockerRequirement:
-    dockerPull: /icgc/dkfzlsdf/analysis/W610/kensche/WFMS/cwl/workflows/cowsay/docker_whalesay.sif
+    dockerPull: docker_whalesay.sif
 
 inputs:
   message:
